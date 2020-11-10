@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { SplittedTextRow } from 'types';
 import { arrayReorder } from 'utils';
 
@@ -15,7 +15,7 @@ export const DraggableList = memo(({ items, onChangeOrder }: ListProps) => {
     setList(items);
   }, [items]);
 
-  const handleDragEnd = (result: any) => {
+  const handleDragEnd = (result: DropResult) => {
     if (!result.destination) {
       return;
     }
@@ -29,12 +29,17 @@ export const DraggableList = memo(({ items, onChangeOrder }: ListProps) => {
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="droppable">
-        {(provided, snapshot) => (
+        {(provided, _snapshot) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {list.map((item, index) => (
               <Draggable key={item.index} draggableId={String(item.index)} index={index}>
                 {(provided, snapshot) => (
-                  <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    className={snapshot.isDragging ? 'p-05 color--red' : 'p-05'}
+                  >
                     {item.value}
                   </div>
                 )}

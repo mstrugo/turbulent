@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import { Input } from './Input';
+import { UserInput } from './Input';
 import { DraggableList } from './List';
 import { useDebounce } from 'hooks';
 import { apiCall, splitString } from 'utils';
@@ -36,10 +36,15 @@ export const App = memo(() => {
   }, [debouncedArrangement]);
 
   return (
-    <div className="App">
-      <Input submitHandler={submitHandler} />
-      {saving && <div>Saving...</div>}
-      <DraggableList items={rows} onChangeOrder={handleChangeOrder} />
+    <div className="wrapper flex">
+      <div className="flex row pr-1 border-r border--black">
+        <UserInput submitHandler={submitHandler} />
+      </div>
+      <div className="flex row ml-1">
+        <DraggableList items={rows} onChangeOrder={handleChangeOrder} />
+      </div>
+
+      {saving && <div className="load absolute absolute--right anim-blink">Saving...</div>}
     </div>
   );
 });
