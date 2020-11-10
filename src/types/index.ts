@@ -1,4 +1,4 @@
 export interface SplittedTextRow {
-  chain: string;
+  value: string;
   index: number;
 }

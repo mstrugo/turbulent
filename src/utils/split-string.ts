@@ -10,14 +10,14 @@ export const splitString = (input: string, size: number): SplittedTextRow[] => {
     const updChain = `${chain} ${word}`;
 
     if (updChain.length > size) {
-      rows.push({ chain, index });
+      rows.push({ value: chain, index });
       chain = word;
     } else {
       chain = updChain;
     }
 
     if (index === words - 1) {
-      rows.push({ chain, index: index + 1 });
+      rows.push({ value: chain, index: index + 1 });
     }
   });
 

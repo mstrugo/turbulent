@@ -1,13 +1,14 @@
 import React, { memo, useEffect, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { SplittedTextRow } from 'types';
-import { arrayReorder } from 'utils/array-reorder';
+import { arrayReorder } from 'utils';
 
 interface ListProps {
   items: SplittedTextRow[];
+  onChangeOrder: (items: any[]) => void;
 }
 
-export const DraggableList = memo(({ items }: ListProps) => {
+export const DraggableList = memo(({ items, onChangeOrder }: ListProps) => {
   const [list, setList] = useState<SplittedTextRow[]>(items);
 
   useEffect(() => {
@@ -22,6 +23,7 @@ export const DraggableList = memo(({ items }: ListProps) => {
     const items = arrayReorder(list, result.source.index, result.destination.index);
 
     setList(items);
+    onChangeOrder(items);
   };
 
   return (
@@ -33,7 +35,7 @@ export const DraggableList = memo(({ items }: ListProps) => {
               <Draggable key={item.index} draggableId={String(item.index)} index={index}>
                 {(provided, snapshot) => (
                   <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                    {item.chain}
+                    {item.value}
                   </div>
                 )}
               </Draggable>

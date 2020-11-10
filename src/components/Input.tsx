@@ -1,5 +1,5 @@
-import { DEFAULT_CHARS_LIMIT, DEFAULT_INPUT } from '../constants';
 import React, { ChangeEvent, FormEvent, memo, useCallback, useState } from 'react';
+import { DEFAULT_CHARS_LIMIT, DEFAULT_INPUT } from '../constants';
 
 interface InputProps {
   submitHandler: (msg: string, max: number) => void;
